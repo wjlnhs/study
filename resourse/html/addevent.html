@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0160)http://wap.cmread.com/r/403280804/403281965.htm?page=1&purl=%2Fr%2Fl%2Fv.jsp%3Fpage%3D1%26nid%3D373338605%26bid%3D403280804&nid=373338605&vt=3&ln=2511_24007__2_ -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=640px, user-scalable=no">
+    <title>日历同步</title>
+   
+<body>
+<div class="copyBox">
+    <div class="cardBox">
+        <div class="card"><i></i><i class="r2"></i><i class="r3"></i></div>
+    </div>
+    <div>您将要访问</div>
+    <div class="copyTxt" ><a id="code"></a></div>
+    <a href="http://www.baidu.com" class="btn_b" id="link">继续访问</a>
+    <div id="box1" style="background:#ccc;width:300px;height:300px;position:absolute;left:0px;top:0px;">
+        
+    </div>
+    <div id="box2" style="background:black;width:300px;height:300px;position:absolute;">
+            
+        </div>
+        <input list="words">
+  <datalist id="words">
+        <option value="Internet Explorer">
+        <option value="Firefox">
+        <option value="Chrome">
+        <option value="Opera">
+        <option value="Safari">
+        <option value="Sogou">
+        <option value="Maxthon">
+    </datalist>
+</div>
+</body>
+<script>
+    var bindEvent =function(dom,event,cbk){
+        if(window.addEventListener){
+            dom.addEventListener(event,cbk)
+        }else{
+            //IE8及其以下
+            dom.attachEvent('on'+event,cbk)
+        }
+    }
+    var removeEvent =function(dom,event,cbk){
+        if(window.addEventListener){
+            dom.removeEventListener(event,cbk)
+        }else{
+            //IE8及其以下
+            dom.detachEvent('on'+event,cbk)
+        }
+    }
+var box1=document.getElementById('box1');
+var box2=document.getElementById('box2');
+    var link=document.getElementById('link');
+    var myalert=function(ev){
+        //alert(5678);
+        // removeEvent(box1,'click',myalert);
+    }
+    bindEvent(box1,'click',myalert)
+    bindEvent(box2,'click',function(ev){
+        //alert(999);
+//        ev.cancelBubble=true;
+//        ev.stopPropagation();
+    })
+    
+    var drag=function(ele){
+        this.ele=ele;
+        var This=this;
+        this.movefn=function(ev){
+                  ev.preventDefault && ev.preventDefault();
+            window.event.returnValue = false; 
+            var x=ev.clientX+document.body.scrollLeft-This.disX;
+            var y=ev.clientY+document.body.scrollTop-This.disY;
+            This.ele.style.left=x+'px';
+            This.ele.style.top=y+'px';
+            This.onmove(x,y);
+        }
+        bindEvent(this.ele,'mousedown',function(ev){
+                 ev.preventDefault && ev.preventDefault();
+           // window.event.returnValue = false; 
+            var boxdownX=This.ele.offsetLeft;
+            var boxdownY=This.ele.offsetTop;
+            This.disX=ev.clientX+document.body.scrollLeft-boxdownX;
+            This.disY=ev.clientY+document.body.scrollTop-boxdownY;
+            //ev.returnValue = false;
+            //window.event.returnValue = false; 
+            bindEvent(document,'mousemove',This.movefn)
+            bindEvent(document,'mouseup',function(ev){
+                removeEvent(document,'mousemove',This.movefn);
+            })
+        })
+    }
+    drag.prototype.onmove=function(x,y){
+        console.log(x,y)
+    };
+
+    var dbox1=new drag(box1);
+    dbox1.onmove=function(x,y){
+        if(x<0){
+           x=0; 
+        }
+        if(y<0){
+           y=0;
+        }
+        if(y>document.body.scrollTop-dbox1.ele.style.height){
+            
+        }
+        dbox1.ele.style.left=x+'px';
+        dbox1.ele.style.top=y+'px';
+    }
+    new drag(box2)
+    bindEvent(link,'click',function(ev){
+        ev.preventDefault && ev.preventDefault();
+        window.event.returnValue=false;
+    })
+    function bubblesort(arr){
+        var len=arr.length;
+        var i=0;
+        var newarr=[];
+        for(var i=0;i<len;i++){
+          for(var j=i+1;j<len;j++){
+              if(arr[i]>arr[j]){
+                  var small=arr[j];
+                  var big=arr[i]
+                  arr[j]=big;
+                  arr[i]=small;
+              }
+          }
+        }
+        return arr;       
+    }
+</script>
+</html>
